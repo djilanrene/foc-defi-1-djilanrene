@@ -1,0 +1,314 @@
+/* =================================== */
+/*        VARIABLES & RESET            */
+/* =================================== */
+:root {
+  /* Couleurs */
+  --color-gradient-start: #42e695;
+  --color-gradient-end: #3bb2b8;
+  --color-dark-blue: #2d354a;
+  --color-white: #ffffff;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #c0c5d2;
+  --color-border: #4f586d;
+
+  /* Typographie */
+  --font-family-primary: 'Lato', sans-serif;
+  --font-size-base: 16px;
+
+  /* Espacements & Rayons */
+  --spacing-unit: 8px;
+  --card-border-radius: 16px;
+  --button-border-radius: 20px;
+}
+
+/* Reset simple et box-sizing pour un layout prévisible */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  min-height: 100vh;
+  background-color: #f0f2f5; /* Un fond neutre pour faire ressortir la carte */
+  background-image: linear-gradient(
+    to bottom right,
+    var(--color-gradient-start),
+    var(--color-gradient-end)
+  );
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+}
+
+/* ===FOOTER=== */
+
+footer {
+  font-size: medium;
+  font-weight: 400;
+  margin-top: 2rem;
+  text-align: center;
+  color: var(--color-dark-blue);
+  /* line-height: 2rem; */
+}
+
+footer a {
+  color: var(--color-dark-blue);
+  text-decoration: underline;
+  font-weight: 550;
+}
+
+/* =================================== */
+/*       STYLE DU COMPOSANT CARD       */
+/* =================================== */
+
+.profile-card {
+  width: 100%;
+  max-width: 40rem; /* pour éviter que la carte soit trop grande */
+  margin: 0 1rem;
+  background-color: var(--color-dark-blue);
+  border-radius: var(--card-border-radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden; /* Crucial pour que les coins arrondis s'appliquent aux enfants */
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Section Header --- */
+
+.profile-card__header {
+  position: relative; /* Contexte de positionnement pour les éléments absolus (avatar, edit-btn) */
+  background: linear-gradient(
+    to bottom right,
+    var(--color-gradient-start),
+    var(--color-gradient-end)
+  );
+  padding: calc(var(--spacing-unit) * 3);
+  padding-top: calc(
+    var(--spacing-unit) * 6
+  ); /* Plus d'espace en haut pour l'avatar */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.profile-card__edit-btn {
+  position: absolute;
+  top: calc(var(--spacing-unit) * 2);
+  right: calc(var(--spacing-unit) * 2);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: var(--color-white);
+  padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
+  border-radius: var(--button-border-radius);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.profile-card__edit-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Section Avatar (Le point délicat) --- */
+
+.profile-card__avatar-container {
+  width: 110px;
+  height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.profile-card__avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 5px solid var(--color-dark-blue);
+  object-fit: cover;
+}
+
+/* --- Section User Info --- */
+
+.profile-card__user-info {
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.user-info__name {
+  color: var(--color-white);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.user-info__bio {
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+}
+
+/* --- Section Follow Button --- */
+
+.profile-card__follow-btn {
+  background: var(--color-white);
+  color: var(--color-dark-blue);
+  border: none;
+  min-width: 15rem;
+  padding: 0.7rem 2.2rem;
+  border-radius: var(--button-border-radius);
+  cursor: pointer;
+  margin: 0.5rem 0 0.5rem 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  transition: background 0.2s, color 0.2s;
+}
+
+.profile-card__follow-btn a {
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.profile-card__follow-btn:hover {
+  background: var(--color-gradient-end);
+  a {
+  color: var(--color-white);
+  }
+}
+
+/* --- Section Footer --- */
+
+.profile-card__footer {
+  padding: calc(var(--spacing-unit) * 3);
+  /* Espace pour ne pas que l'avatar écrase le contenu */
+  padding-top: calc(var(--spacing-unit) * 1.1);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-unit) * 2);
+  align-items: center;
+}
+
+/* Réseaux sociaux (liens simples, sans icônes) */
+.profile-card__social {
+  margin-top: calc(var(--spacing-unit) * 1);
+  display: flex;
+  gap: calc(var(--spacing-unit) * 1.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 4; /* Toujours au-dessus de l'avatar */
+}
+
+.social-btn {
+  display: inline-block;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  color: var(--color-white);
+  background: rgba(255,255,255,0.07);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border: none;
+  transition: background 0.2s;
+}
+
+/* Couleurs spécifiques (subtiles) */
+.social-btn--youtube {
+  color: #ff0000;
+}
+.social-btn--github {
+  color: #ffffff;
+}
+.social-btn--whatsapp {
+  color: #25d366;
+}
+.social-btn--linkedin {
+  color: #0a66c2;
+}
+
+.profile-card__edit-btn a {
+    text-decoration: none;
+    color: var(--color-dark-blue);
+}
+
+/* Ajustements responsive */
+@media (max-width: 720px) {
+  body {
+    /* align-items: flex-start; */
+    padding-top: 3rem;
+  }
+  .profile-card {
+    max-width: 30rem;
+  }
+  .profile-card__header {
+    padding-top: calc(var(--spacing-unit) * 5);
+  }
+  .profile-card__avatar-container {
+     width: 80px;
+     height: 80px;
+     margin-bottom: 0.3rem;
+  }
+  .profile-card__follow-btn {
+    padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 3);
+  }
+}
+
+@media (max-width: 420px) {
+  .profile-card {
+    margin: 1rem;
+  }
+  .user-info__name {
+    font-size: 1.4rem;
+  }
+  .user-info__bio {
+    font-size: 1rem;
+  }
+  .profile-card__stats {
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 1.5);
+  }
+  .stat:not(:first-child)::before {
+    display: none;
+  }
+}
+
+.profile-card__stats {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  gap: 1.5rem;
+  width: 100%;
+  margin: 0.5rem 0 0.5rem 0;
+  padding: 0;
+}
+
+.stat {
+  text-align: center;
+}
+
+/* Ajout des séparateurs verticaux */
+.stat:not(:first-child)::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 50%;
+  border-left: 1px solid var(--color-border);
+}
+
+.stat__value {
+  color: var(--color-white);
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: block;
+}
+
+.stat__label {
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
